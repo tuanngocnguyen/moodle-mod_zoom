@@ -142,9 +142,13 @@ function populate_zoom_from_response(stdClass $zoom, stdClass $response) {
     // Inlcuded for constants.
     require_once($CFG->dirroot.'/mod/zoom/locallib.php');
 
+<<<<<<< 44cbdd324f22478068fbad00a443c0f56d6c16fd
     $newzoom = clone $zoom;
 
     $samefields = array('start_url', 'join_url', 'created_at', 'timezone');
+=======
+    $samefields = array('start_url', 'join_url', 'created_at', 'timezone', 'uuid');
+>>>>>>> CCLE-7741 - Improved participant report.
     foreach ($samefields as $field) {
         if (isset($response->$field)) {
             $newzoom->$field = $response->$field;

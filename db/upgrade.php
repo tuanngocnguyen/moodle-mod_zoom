@@ -64,7 +64,7 @@ function xmldb_zoom_upgrade($oldversion) {
         $field = new xmldb_field('option_no_video_host', XMLDB_TYPE_INTEGER, '1', null, null, null,
                 '1', 'option_start_type');
         // Invert option_no_video_host.
-        $DB->execute('UPDATE {zoom} SET option_no_video_host = 1 - option_no_video_host');
+        $DB->set_field('UPDATE {zoom} SET option_no_video_host = 1 - option_no_video_host');
         $dbman->change_field_default($table, $field);
         $dbman->rename_field($table, $field, 'option_host_video');
 
@@ -72,7 +72,7 @@ function xmldb_zoom_upgrade($oldversion) {
         $field = new xmldb_field('option_no_video_participants', XMLDB_TYPE_INTEGER, '1', null, null, null,
                 '1', 'option_host_video');
         // Invert option_no_video_participants.
-        $DB->execute('UPDATE {zoom} SET option_no_video_participants = 1 - option_no_video_participants');
+        $DB->set_field('UPDATE {zoom} SET option_no_video_participants = 1 - option_no_video_participants');
         $dbman->change_field_default($table, $field);
         $dbman->rename_field($table, $field, 'option_participants_video');
 
@@ -89,7 +89,7 @@ function xmldb_zoom_upgrade($oldversion) {
         // Change precision/length of duration to 6 digits.
         $field = new xmldb_field('duration', XMLDB_TYPE_INTEGER, '6', null, null, null, null, 'type');
         $dbman->change_field_precision($table, $field);
-        $DB->execute('UPDATE {zoom} SET duration = duration*60');
+        $DB->set_field('UPDATE {zoom} SET duration = duration*60');
 
         upgrade_mod_savepoint(true, 2015071500, 'zoom');
     }
@@ -165,8 +165,40 @@ function xmldb_zoom_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2018071900, 'zoom');
     }
 
+    if ($oldversion < 2018081700) {
+        // Start zoom table modifications.
+        $table = new xmldb_table('zoom');
+
+        // Define field status to be dropped from zoom.
+        $field = new xmldb_field('status');
+
+        // Conditionally launch drop field status.
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        // Define field exists_on_zoom to be added to zoom.
+        $field = new xmldb_field('exists_on_zoom', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'option_audio');
+
+        // Conditionally launch add field exists_on_zoom.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field uuid to be dropped from zoom.
+        $field = new xmldb_field('uuid');
+
+        // Conditionally launch drop field uuid.
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        // Zoom savepoint reached.
+        upgrade_mod_savepoint(true, 2018081700, 'zoom');
+    }
+
     // Database changes from CCLE-7741.
-    if ($oldversion < 2018072700) {
+    if ($oldversion < 2018082100) {
         // Define table zoom_meetings_queue to be created.
         $table = new xmldb_table('zoom_meetings_queue');
 
@@ -209,37 +241,11 @@ function xmldb_zoom_upgrade($oldversion) {
             $dbman->create_table($table);
         }
 
-        // Start zoom table modifications.
-        $table = new xmldb_table('zoom');
-        // Define field status to be dropped from zoom.
-        $field = new xmldb_field('status');
-
-        // Conditionally launch drop field status.
-        if ($dbman->field_exists($table, $field)) {
-            $dbman->drop_field($table, $field);
-        }
-
-        // Define field exists_on_zoom to be added to zoom.
-        $field = new xmldb_field('exists_on_zoom', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'option_audio');
-
-        // Conditionally launch add field exists_on_zoom.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Define field uuid to be dropped from zoom.
-        $field = new xmldb_field('uuid');
-
-        // Conditionally launch drop field uuid.
-        if ($dbman->field_exists($table, $field)) {
-            $dbman->drop_field($table, $field);
-        }
-
         // Zoom savepoint reached.
-        upgrade_mod_savepoint(true, 2018072700, 'zoom');
+        upgrade_mod_savepoint(true, 2018082100, 'zoom');
     }
 
-    if ($oldversion < 2018080100) {
+    if ($oldversion < 2018082101) {
 
         // Define field start_time to be added to zoom_meetings_queue.
         $table = new xmldb_table('zoom_meetings_queue');
@@ -258,10 +264,10 @@ function xmldb_zoom_upgrade($oldversion) {
         }
 
         // Zoom savepoint reached.
-        upgrade_mod_savepoint(true, 2018080100, 'zoom');
+        upgrade_mod_savepoint(true, 2018082101, 'zoom');
     }
 
-    if ($oldversion < 2018080101) {
+    if ($oldversion < 2018082102) {
 
         // Define field retrieved to be added to zoom_meetings_queue.
         $table = new xmldb_table('zoom_meetings_queue');
@@ -273,10 +279,10 @@ function xmldb_zoom_upgrade($oldversion) {
         }
 
         // Zoom savepoint reached.
-        upgrade_mod_savepoint(true, 2018080101, 'zoom');
+        upgrade_mod_savepoint(true, 2018082102, 'zoom');
     }
 
-    if ($oldversion < 2018080700) {
+    if ($oldversion < 2018082103) {
         // Changes for zoom_meetings_queue.
         // Define table zoom_meetings_queue to be renamed to zoom_meeting_details.
         $table = new xmldb_table('zoom_meetings_queue');
@@ -413,7 +419,7 @@ function xmldb_zoom_upgrade($oldversion) {
         $dbman->rename_table($table, 'zoom_meeting_participants');
 
         // Zoom savepoint reached.
-        upgrade_mod_savepoint(true, 2018080700, 'zoom');
+        upgrade_mod_savepoint(true, 2018082103, 'zoom');
     }
     return true;
 }

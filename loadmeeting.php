@@ -35,6 +35,9 @@ require_once(dirname(__FILE__).'/locallib.php');
 // For report queuing.
 define('RECCURING_MEETING_GRACE_PERIOD', 60);
 
+// For report queuing.
+define('RECCURING_MEETING_GRACE_PERIOD', 60);
+
 // Course_module ID.
 $id = required_param('id', PARAM_INT);
 if ($id) {
