@@ -394,9 +394,16 @@ class mod_zoom_webservice {
      * @param bool $webinar Whether the meeting or webinar whose information you want is a webinar.
      * @return stdClass The meeting's or webinar's information.
      */
-    public function get_meeting_webinar_info($id, $webinar) {
-        $url = ($webinar ? 'webinars/' : 'meetings/') . $id;
-        return $this->_make_call($url);
+    public function get_meeting_info($zoom) {
+        $url = ($zoom->webinar ? 'webinars/' : 'meetings/') . $zoom->meeting_id;
+        $response = null;
+        try {
+            $response = $this->_make_call($url);
+        }
+        catch(moodle_exception $error) {
+            throw $error;
+        }
+        return $response;
     }
 
     /**

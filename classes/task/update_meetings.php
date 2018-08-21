@@ -75,7 +75,7 @@ class update_meetings extends \core\task\scheduled_task {
             try {
                 $response = $service->get_meeting_info($zoom);
                 $gotinfo = true;
-            } catch (moodle_exception $error) {
+            } catch (\moodle_exception $error) {
                 if (strpos($error, 'is not found or has expired') === false) {
                     throw $error;
                 } else {
