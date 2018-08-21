@@ -389,7 +389,14 @@ class mod_zoom_webservice {
      */
     public function get_meeting_info($zoom) {
         $url = ($zoom->webinar ? 'webinars/' : 'meetings/') . $zoom->meeting_id;
-        return $this->_make_call($url);
+        $response = null;
+        try {
+            $response = $this->_make_call($url);
+        }
+        catch(moodle_exception $error) {
+            throw $error;
+        }
+        return $response;
     }
 
     /**
