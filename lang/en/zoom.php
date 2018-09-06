@@ -103,6 +103,7 @@ $string['recurringmeeting'] = 'Recurring';
 $string['recurringmeeting_help'] = 'Has no end date';
 $string['recurringmeetinglong'] = 'Recurring meeting (meeting with no end date or time)';
 $string['report'] = 'Reports';
+$string['reportapicalls'] = 'Report API calls exhausted';
 $string['requirepassword'] = 'Require meeting password';
 $string['resetapicalls'] = 'Reset the number of available API calls';
 $string['sessions'] = 'Sessions';

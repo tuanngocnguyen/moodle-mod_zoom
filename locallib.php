@@ -95,7 +95,7 @@ function zoom_get_instance_setup() {
  * @return array information about the meeting
  */
 function zoom_get_sessions_for_display($meetingid, $webinar, $hostid) {
-    require_once(dirname(__FILE__).'/../../lib/moodlelib.php');
+    require_once(__DIR__.'/../../lib/moodlelib.php');
     global $DB;
     $service = new mod_zoom_webservice();
     $sessions = array();
@@ -240,7 +240,8 @@ function zoom_meetingnotfound_param($cmid) {
 function zoom_get_participants_report($detailsid) {
     global $DB;
     $service = new mod_zoom_webservice();
-    $sql = 'SELECT zmp.name,
+    $sql = 'SELECT zmp.id,
+                   zmp.name,
                    zmp.userid,
                    zmp.user_email,
                    zmp.join_time,
@@ -255,14 +256,5 @@ function zoom_get_participants_report($detailsid) {
         'detailsid' => $detailsid
     ];
     $participants = $DB->get_records_sql($sql, $params);
-    foreach ($participants as $participant) {
-        $userinfo = $service->get_user($participant->uuid);
-        if (is_null($participant->name)) {
-            $participant->name = strtoupper($userinfo->last_name) . ', ' . strtoupper($userinfo->first_name);
-        }
-        if (is_null($participant->user_email)) {
-            $participant->user_email = $userinfo->email;
-        }
-    }
     return $participants;
 }

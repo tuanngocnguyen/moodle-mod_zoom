@@ -31,6 +31,8 @@ require_once(dirname(__FILE__).'/../../lib/moodlelib.php');
 
 list($course, $cm, $zoom) = zoom_get_instance_setup();
 
+global $DB;
+
 // Check capability.
 $context = context_module::instance($cm->id);
 require_capability('mod/zoom:addinstance', $context);
@@ -69,7 +71,9 @@ if (empty($export) || empty($participants)) {
 $coursecontext = context_course::instance($course->id);
 $enrolled = get_enrolled_users($coursecontext);
 $nametouids = array();
+$moodleidtouids = array();
 foreach ($enrolled as $user) {
+    $moodleidtouids[$user->id] = $user->idnumber;
     $name = strtoupper(fullname($user));
     $uids = empty($nametouids[$name]) ? array() : $nametouids[$name];
     $uids[] = $user->idnumber;
@@ -90,10 +94,12 @@ foreach ($participants as $p) {
     $name = $p->name;
 
     // ID number.
-    if ($p->userid) {
-        $row[] = $p->userid;
+    if (array_key_exists($p->userid, $moodleidtouids)) {
+        $row[] = $moodleidtouids[$p->userid];
+    } else if ($moodleuser = $DB->get_record('user', array('id' => $p->userid), 'idnumber')) {
+        $row[] = $moodleuser->idnumber;
     } else {
-        $row[] = empty($nametouids[strtoupper($name)]) ? '' : implode(', ', $nametouids[strtoupper($name)]);
+        $row[] = '';
     }
 
     // Name.
@@ -121,7 +127,7 @@ if ($export != 'xls') {
             'export' => 'xls'
         ));
     $xlsstring = get_string('application/vnd.ms-excel', 'mimetypes');
-    $xlsicon = html_writer::img($OUTPUT->pix_url('f/spreadsheet'), $xlsstring, array('title' => $xlsstring));
+    $xlsicon = html_writer::img($OUTPUT->image_url('f/spreadsheet'), $xlsstring, array('title' => $xlsstring));
     echo get_string('export', 'mod_zoom') . ': ' . html_writer::link($exporturl, $xlsicon);
 
     echo $OUTPUT->footer();

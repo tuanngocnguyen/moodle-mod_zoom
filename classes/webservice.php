@@ -160,10 +160,11 @@ class mod_zoom_webservice {
         for ($currentpage = $numpages = 1; $currentpage <= $numpages; $currentpage++) {
             $data['page_number'] = $currentpage;
             $callresult = null;
-            $numcalls = get_config('zoom', 'calls_left');
+            $numcalls = get_config('mod_zoom', 'calls_left');
             if (in_array('report', $reportcheck) && $numcalls > 0) {
                 $callresult = $this->_make_call($url, $data);
-                set_config('calls_left', $numcalls - 1, 'zoom');
+                set_config('calls_left', $numcalls - 1, 'mod_zoom');
+                sleep(1);
             } else {
                 $callresult = $this->_make_call($url, $data);
             }
@@ -399,8 +400,7 @@ class mod_zoom_webservice {
         $response = null;
         try {
             $response = $this->_make_call($url);
-        }
-        catch(moodle_exception $error) {
+        } catch (moodle_exception $error) {
             throw $error;
         }
         return $response;

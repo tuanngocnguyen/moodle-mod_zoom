@@ -110,18 +110,6 @@ function zoom_update_instance(stdClass $zoom, mod_zoom_mod_form $mform = null) {
     $service = new mod_zoom_webservice();
     $service->update_meeting($zoom);
 
-    // Not sure what to do for recurring meetings here.
-    $endtime = $zoom->start_time + $zoom->duration;
-    $oldmeeting = $DB->get_record('zoom_meeting_details', array('meeting_id' => $zoom->meeting_id));
-    $updatedmeeting = array(
-        'start_time' => $zoom->start_time,
-        'duration' => $zoom->duration,
-        'end_time' => $endtime,
-        'topic' => $zoom->name,
-        'id' => $oldmeeting->id
-    );
-    $DB->update_record('zoom_meeting_details', $updatedmeeting);
-
     zoom_calendar_item_update($zoom);
     zoom_grade_item_update($zoom);
 

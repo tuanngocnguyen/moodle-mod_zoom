@@ -40,7 +40,7 @@ class reset_api_calls extends \core\task\scheduled_task {
      * Resets the value of the counter that stores how many available API calls are left.
      */
     public function execute() {
-        set_config('calls_left', MAX_CALLS, 'zoom');
+        set_config('calls_left', MAX_CALLS, 'mod_zoom');
     }
 
     /**
