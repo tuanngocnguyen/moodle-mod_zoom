@@ -59,11 +59,9 @@ $string['errorwebservice'] = 'Zoom webservice error: {$a}.';
 $string['export'] = 'Export';
 $string['firstjoin'] = 'First able to join';
 $string['firstjoin_desc'] = 'The earliest a user can join a scheduled meeting (minutes before start).';
-<<<<<<< HEAD
 $string['getmeetingreports'] = 'Get meeting report from Zoom';
-=======
 $string['googlecalendar'] = 'Google Calendar';
->>>>>>> feature/CCLE-7744-display-add-to-calendar-button
+$string['googleiconalt'] = 'Google icon';
 $string['invalid_status'] = 'Status invalid, check the database.';
 $string['join'] = 'Join';
 $string['joinbeforehost'] = 'Join meeting before host';
@@ -133,6 +131,7 @@ $string['webinar'] = 'Webinar';
 $string['webinar_help'] = 'This option is only available to pre-authorized Zoom accounts.';
 $string['webinar_already_true'] = '<p><b>This module was already set as a webinar, not meeting. You cannot toggle this setting after creating the webinar.</b></p>';
 $string['webinar_already_false'] = '<p><b>This module was already set as a meeting, not webinar. You cannot toggle this setting after creating the meeting.</b></p>';
+$string['windowsiconalt'] = 'Windows icon';
 $string['zoom:addinstance'] = 'Add a new Zoom meeting';
 $string['zoomerr'] = 'An error occured with Zoom.'; // Generic error.
 $string['zoomerr_apikey_missing'] = 'Zoom API key not found';
