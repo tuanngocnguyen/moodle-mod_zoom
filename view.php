@@ -147,6 +147,19 @@ if ($iszoommanager) {
     }
 }
 
+// Generate add-to-calendar buttons if meeting was found.
+if (!$showrecreate) {
+    $googlelink = 'https://ucla.zoom.us/meeting/' . $zoom->meeting_id . '/calendar/google/add';
+    $outlooklink = 'https://ucla.zoom.us/meeting/' . $zoom->meeting_id . '/ics';
+    $googleicon = $OUTPUT->pix_icon('i/google', 'Google icon', 'mod_zoom');
+    $windowsicon = $OUTPUT->pix_icon('i/windows', 'Windows icon', 'mod_zoom');
+    $googlebutton = html_writer::div($googleicon . ' ' . get_string('googlecalendar', 'mod_zoom'), 'btn btn-primary');
+    $outlookbutton = html_writer::div($windowsicon . ' ' . get_string('outlook', 'mod_zoom'), 'btn btn-primary');
+    $googlehtml = html_writer::link($googlelink, $googlebutton, array('target' => '_blank'));
+    $outlookhtml = html_writer::link($outlooklink, $outlookbutton, array('target' => '_blank'));
+    $table->data[] = array(get_string('addtocalendar', 'mod_zoom'), $googlehtml . $outlookhtml);
+}
+
 if ($zoom->recurring) {
     $recurringmessage = new html_table_cell(get_string('recurringmeetinglong', 'mod_zoom'));
     $recurringmessage->colspan = $numcolumns;

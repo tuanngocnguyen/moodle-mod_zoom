@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['actions'] = 'Actions';
+$string['addtocalendar'] = 'Add to calendar';
 $string['alternative_hosts'] = 'Alternative Hosts';
 $string['alternative_hosts_help'] = 'The alternative host option allows you to schedule meetings and designate another Pro user on the same account to start the meeting or webinar if you are unable to. This user will receive an email notifying them that they\'ve been added as an alternative host, with a link to start the meeting. Separate multiple emails by comma (without spaces).';
 $string['allmeetings'] = 'All meetings';
@@ -58,7 +59,11 @@ $string['errorwebservice'] = 'Zoom webservice error: {$a}.';
 $string['export'] = 'Export';
 $string['firstjoin'] = 'First able to join';
 $string['firstjoin_desc'] = 'The earliest a user can join a scheduled meeting (minutes before start).';
+<<<<<<< HEAD
 $string['getmeetingreports'] = 'Get meeting report from Zoom';
+=======
+$string['googlecalendar'] = 'Google Calendar';
+>>>>>>> feature/CCLE-7744-display-add-to-calendar-button
 $string['invalid_status'] = 'Status invalid, check the database.';
 $string['join'] = 'Join';
 $string['joinbeforehost'] = 'Join meeting before host';
@@ -98,6 +103,7 @@ $string['option_audio'] = 'Audio options';
 $string['option_host_video'] = 'Host video';
 $string['option_jbh'] = 'Enable join before host';
 $string['option_participants_video'] = 'Participants video';
+$string['outlook'] = 'Outlook';
 $string['participants'] = 'Participants';
 $string['password'] = 'Password';
 $string['passwordprotected'] = 'Password Protected';
