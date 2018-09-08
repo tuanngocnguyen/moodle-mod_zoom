@@ -258,9 +258,5 @@ function zoom_get_participants_report($detailsid) {
         'detailsid' => $detailsid
     ];
     $participants = $DB->get_records_sql($sql, $params);
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/CCLE-7741-Improve-participant-report
     return $participants;
 }
