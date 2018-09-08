@@ -131,7 +131,10 @@ $string['webinar'] = 'Webinar';
 $string['webinar_help'] = 'This option is only available to pre-authorized Zoom accounts.';
 $string['webinar_already_true'] = '<p><b>This module was already set as a webinar, not meeting. You cannot toggle this setting after creating the webinar.</b></p>';
 $string['webinar_already_false'] = '<p><b>This module was already set as a meeting, not webinar. You cannot toggle this setting after creating the meeting.</b></p>';
+<<<<<<< HEAD
 $string['windowsiconalt'] = 'Windows icon';
+=======
+>>>>>>> feature/CCLE-7741-Improve-participant-report
 $string['zoom:addinstance'] = 'Add a new Zoom meeting';
 $string['zoomerr'] = 'An error occured with Zoom.'; // Generic error.
 $string['zoomerr_apikey_missing'] = 'Zoom API key not found';
