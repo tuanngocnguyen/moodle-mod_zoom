@@ -126,14 +126,21 @@ function zoom_get_sessions_for_display($meetingid, $webinar, $hostid) {
 
         // Default duration is overridden by the actual duration: time spent in the meeting by the host.
         $duration = $instance->duration * 60;
+        $totalhostduration = 0;
+        $minhostjointime = 0;
         foreach ($participantlist as $participant) {
             if ($participant->uuid == $hostid) {
-                $duration = $participant->duration;
-                if (!isset($instance->start_time)) {
-                    $instance->start_time = $participant->join_time;
+                $totalhostduration += $participant->duration;
+                if ($minhostjointime > $participant->join_time) {
+                    $minhostjointime = $participant->join_time;
                 }
-                break;
             }
+        }
+        if (!isset($instance->start_time)) {
+            $instance->start_time = $minhostjointime;
+        }
+        if ($totalhostduration > 0) {
+            $duration = $totalhostduration;
         }
         $sessions[$uuid]['duration'] = format_time($duration);
         $sessions[$uuid]['starttime'] = userdate($instance->start_time, $format);
