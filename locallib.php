@@ -99,22 +99,9 @@ function zoom_get_sessions_for_display($meetingid, $webinar, $hostid) {
     global $DB;
     $service = new mod_zoom_webservice();
     $sessions = array();
-
-    $sql = 'SELECT zmd.uuid,
-                   zmd.start_time,
-                   zmd.end_time,
-                   zmd.topic,
-                   zmd.duration,
-                   zmd.participants_count,
-                   zmd.id
-              FROM {zoom_meeting_details} zmd
-             WHERE zmd.meeting_id = :req_meeting_id
-          GROUP BY zmd.uuid';
-    $params = [
-        'req_meeting_id' => $meetingid
-    ];
-    $instances = $DB->get_records_sql($sql, $params);
     $format = get_string('strftimedatetimeshort', 'langconfig');
+
+    $instances = $DB->get_records('zoom_meeting_details', array('meeting_id' => $meetingid));
 
     foreach ($instances as $instance) {
         // The meeting uuid, not the participant's uuid.
@@ -123,25 +110,7 @@ function zoom_get_sessions_for_display($meetingid, $webinar, $hostid) {
         $sessions[$uuid]['participants'] = $participantlist;
         $sessions[$uuid]['count'] = count($participantlist);
         $sessions[$uuid]['topic'] = $instance->topic;
-
-        // Default duration is overridden by the actual duration: time spent in the meeting by the host.
         $duration = $instance->duration * 60;
-        $totalhostduration = 0;
-        $minhostjointime = 0;
-        foreach ($participantlist as $participant) {
-            if ($participant->uuid == $hostid) {
-                $totalhostduration += $participant->duration;
-                if ($minhostjointime > $participant->join_time) {
-                    $minhostjointime = $participant->join_time;
-                }
-            }
-        }
-        if (!isset($instance->start_time)) {
-            $instance->start_time = $minhostjointime;
-        }
-        if ($totalhostduration > 0) {
-            $duration = $totalhostduration;
-        }
         $sessions[$uuid]['duration'] = format_time($duration);
         $sessions[$uuid]['starttime'] = userdate($instance->start_time, $format);
         $sessions[$uuid]['endtime'] = userdate($instance->start_time + $duration, $format);
