@@ -114,9 +114,14 @@ foreach ($participants as $p) {
     if ($durationremainder != 0) {
         $p->duration += 60 - $durationremainder;
     }
+    $durationminutes = $p->duration / 60;
 
-    $row[] = format_time($p->duration);
-
+    if ($durationminutes == 1) {
+        $row[] = "$durationminutes min";
+    } else {
+        $row[] = "$durationminutes mins";
+    }
+    
     // Attentiveness Score.
     $row[] = $p->attentiveness_score;
 
