@@ -110,6 +110,11 @@ foreach ($participants as $p) {
     $row[] = userdate($p->leave_time);
 
     // Duration.
+    $durationremainder = $p->duration % 60;
+    if ($durationremainder != 0) {
+        $p->duration += 60 - $durationremainder;
+    }
+
     $row[] = format_time($p->duration);
 
     // Attentiveness Score.
