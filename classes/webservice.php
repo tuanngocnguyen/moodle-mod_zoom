@@ -282,7 +282,7 @@ class mod_zoom_webservice {
         $logintypes = get_config('mod_zoom', 'logintypes');
         $allowedtypes = explode(',', $logintypes);
         $founduser = false;
-        
+
         $url = 'users/' . $identifier;
 
         foreach ($allowedtypes as $logintype) {
@@ -291,7 +291,7 @@ class mod_zoom_webservice {
                 $founduser = $this->_make_call($url, $data);
             } catch (moodle_exception $error) {
                 if (zoom_is_user_not_found_error($error->getMessage())) {
-                    continue;
+                    return false;
                 } else {
                     throw $error;
                 }
