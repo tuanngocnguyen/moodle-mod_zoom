@@ -70,13 +70,6 @@ $string['join_link'] = 'Join link';
 $string['join_meeting'] = 'Join Meeting';
 $string['jointime'] = 'Join time';
 $string['leavetime'] = 'Leave time';
-$string['login_api'] = 'API';
-$string['login_facebook'] = 'Facebook';
-$string['login_google'] = 'Google';
-$string['login_sso'] = 'Single sign-on';
-$string['login_zoom'] = 'Zoom';
-$string['logintypes'] = 'Login types';
-$string['logintypesexplain'] = 'Select all login types for user email lookup. Hold CTRL key to select multiple fields. (Options are listed in the order that lookup will be attempted)';
 $string['licensesnumber'] = 'Number of licenses';
 $string['redefinelicenses'] = 'Redefine licenses';
 $string['lowlicenses'] = 'If the number of your licenses exceeds those required, then when you create each new activity by the user, it will be assigned a PRO license by lowering the status of another user. The option is effective when the number of active PRO-licenses is more than 5.';
@@ -150,8 +143,7 @@ $string['zoomerr_id_missing'] = 'You must specify a course_module ID or an insta
 $string['zoomerr_licensescount_missing'] = 'Zoom utmost setting found but, licensescount setting not found';
 $string['zoomerr_meetingnotfound'] = 'This meeting cannot be found on Zoom. You can <a href="{$a->recreate}">recreate it here</a> or <a href="{$a->delete}">delete it completely</a>.';
 $string['zoomerr_meetingnotfound_info'] = 'This meeting cannot be found on Zoom. Please contact the meeting host if you have questions.';
-$string['zoomerr_usernotfound'] = 'Unable to find your account on Zoom. If you are using Zoom for the first time, you must Zoom account by logging into Zoom '
-        . '<a href="{$a}" target="_blank">{$a}</a>. Once you\'ve activated your Zoom account, reload this page and continue setting up your meeting. Else make sure your email on Zoom matches your email on this system.';
+$string['zoomerr_usernotfound'] = 'Unable to find your account on Zoom. If you are using Zoom for the first time, you must Zoom account by logging into Zoom <a href="{$a}" target="_blank">{$a}</a>. Once you\'ve activated your Zoom account, reload this page and continue setting up your meeting. Else make sure your email on Zoom matches your email on this system.';
 $string['zoomurl'] = 'Zoom home page URL';
 $string['zoomurl_desc'] = '';
 $string['zoom:view'] = 'View Zoom meetings';
