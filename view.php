@@ -169,7 +169,7 @@ if (!$zoom->webinar) {
 }
 
 if ($userishost) {
-    $table->data[] = array($strjoinlink, html_writer::link($zoom->join_url, $zoom->join_url));
+    $table->data[] = array($strjoinlink, html_writer::link($zoom->join_url, $zoom->join_url, array('target' => '_blank')));
 }
 
 if (!$zoom->webinar) {
