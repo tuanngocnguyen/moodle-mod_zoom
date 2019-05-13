@@ -72,6 +72,10 @@ class createuser_test extends advanced_testcase {
     public function setUp() {
         $this->resetAfterTest(true);
 
+        $this->markTestSkipped(
+            'The test will be deleted in later version as stated in https://github.com/ucla/moodle-mod_zoom/issues/55'
+        );
+
         set_config('apiurl', 'https://api.zoom.us/v1/', 'mod_zoom');
         set_config('apikey', uniqid(), 'mod_zoom');
         set_config('apisecret', uniqid(), 'mod_zoom');
